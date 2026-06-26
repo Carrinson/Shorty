@@ -47,13 +47,25 @@ Open [http://localhost:8000](http://localhost:8000) for the app, or [http://loca
 
 ## Deployment
 
-This repo includes a [`render.yaml`](render.yaml) for one-click setup on [Render](https://render.com):
+This repo supports either Render or Railway — pick whichever you prefer.
+
+### Railway
+
+Uses [`railway.json`](railway.json), built via Nixpacks (which natively supports `uv.lock`, no `requirements.txt` needed):
+
+1. Push this repo to GitHub
+2. On Railway, create a new project and link the repo
+3. Railway picks up `railway.json` automatically (start: `uvicorn main:app --host 0.0.0.0 --port $PORT`)
+
+### Render
+
+Uses [`render.yaml`](render.yaml):
 
 1. Push this repo to GitHub
 2. On Render, create a new Web Service and connect the repo
-3. Render will pick up `render.yaml` automatically (build: `pip install -r requirements.txt`, start: `uvicorn main:app --host 0.0.0.0 --port $PORT`)
+3. Render picks up `render.yaml` automatically (build: `pip install -r requirements.txt`, start: `uvicorn main:app --host 0.0.0.0 --port $PORT`)
 
-If you update dependencies, regenerate `requirements.txt` from the uv lockfile:
+If you update dependencies, regenerate `requirements.txt` (only needed for Render):
 
 ```bash
 uv export --no-hashes --no-dev -o requirements.txt
